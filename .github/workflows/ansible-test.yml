@@ -54,11 +54,25 @@ jobs:
         ansible-version: [2.9.15, 2.10.3]
 
     steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install ansible (${{ matrix.ansible-version }})
+        run: pip install ansible=="${{ matrix.ansible-version }}"
+        
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install wheel
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: Download migrated collection artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: collection
+          path: .cache/collection-tarballs
 
       - name: Setup Unit test Pre-requisites
         run: |
