@@ -82,14 +82,12 @@ jobs:
           sed -i 's/units/ansible_collections.dellemc.openmanage.tests.unit/' /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/plugins/modules/utils.py
 
       - name: Run Unit tests using ansible-test
-        run: |
-          cd /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/
-          ansible-test units --python ${{ matrix.python-version }}
+        run: ansible-test units --python ${{ matrix.python-version }}
+        working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
       - name: Generate coverage report using pytest
-        run: |
-          cd /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
-          pytest -v --cov-config=/home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/plugins/.coveragerc --cov=/home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/plugins/ --cov-report=term-missing  --cov-fail-under=90 --cov-branch
+        run: pytest -v --cov-config=/home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/plugins/.coveragerc --cov=/home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/plugins/ --cov-report=term-missing  --cov-fail-under=90 --cov-branch
+        working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
       - name: Generate coverage report.
         run: ansible-test coverage xml -v --requirements --group-by command --group-by version
