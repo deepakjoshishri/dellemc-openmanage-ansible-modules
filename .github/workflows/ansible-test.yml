@@ -64,8 +64,7 @@ jobs:
         
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install wheel
+          python -m pip install --upgrade pip wheel pytest coverage
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           
       - name: Download migrated collection artifacts
@@ -107,16 +106,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ansible-version: [stable-2.10, devel]
+        ansible-version: [devel]
 
     steps:
-      - uses: actions/checkout@v2
-        # it is just required to run that once as "ansible-test sanity" in the docker image
-        # will run on all python v
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install ansible (${{ matrix.ansible-version }})
+        run: pip install ansible=="${{ matrix.ansible-version }}"
+
+      - name: Download migrated collection artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: collection
+          path: .cache/collection-tarballs
+
+      - name: Setup Unit test Pre-requisites
+        run: ansible-galaxy collection install .cache/collection-tarballs/*.tar.gz
 
       - name: Run sanity tests
         run: ansible-test sanity --docker -v --color --truncate 0 --coverage
