@@ -32,8 +32,8 @@ jobs:
         with:
           python-version: 3.7
 
-      - name: Install ansible-base (v${{ matrix.ansible }})
-        run: pip install https://github.com/ansible/ansible/archive/v${{ matrix.ansible }}.tar.gz --disable-pip-version-check
+      - name: Install ansible (${{ matrix.ansible-version }})
+        run: pip install ansible==${{ matrix.ansible-version }
 
       - name: Build a collection tarball
         run: ansible-galaxy collection build --output-path "${GITHUB_WORKSPACE}/.cache/collection-tarballs"
@@ -61,8 +61,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install ansible-base (${{ matrix.ansible-version }})
-        run: pip install ansible=={{ matrix.ansible-version }} --disable-pip-version-check
+      - name: Install ansible (${{ matrix.ansible-version }})
+        run: pip install ansible==${{ matrix.ansible-version }}
 
       - name: Install dependencies
         run: |
