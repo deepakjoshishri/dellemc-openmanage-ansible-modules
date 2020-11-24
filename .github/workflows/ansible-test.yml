@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ansible: [2.9.12, 2.10.0]
+        ansible-version: [2.9.12, 2.10.0]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -33,7 +33,7 @@ jobs:
           python-version: 3.7
 
       - name: Install ansible (${{ matrix.ansible-version }})
-        run: pip install ansible==${{ matrix.ansible-version }
+        run: pip install ansible=="${{ matrix.ansible-version }"
 
       - name: Build a collection tarball
         run: ansible-galaxy collection build --output-path "${GITHUB_WORKSPACE}/.cache/collection-tarballs"
@@ -62,7 +62,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install ansible (${{ matrix.ansible-version }})
-        run: pip install ansible==${{ matrix.ansible-version }}
+        run: pip install ansible=="${{ matrix.ansible-version }}"
 
       - name: Install dependencies
         run: |
