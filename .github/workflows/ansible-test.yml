@@ -61,10 +61,7 @@ jobs:
 
       - name: Install ansible (${{ matrix.ansible-version }})
         run: pip install ansible=="${{ matrix.ansible-version }}"
-        
-      - name: Install dependencies
-        run: pip install -r tests/requirements.txt
-          
+
       - name: Download migrated collection artifacts
         uses: actions/download-artifact@v1
         with:
