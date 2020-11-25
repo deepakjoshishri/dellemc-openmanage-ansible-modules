@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         python-version: [2.7, 3.8]
-        ansible-version: [2.9.15, 2.10.3]
+        ansible-version: [2.10.3]
 
     steps:
       - name: Set up Python ${{ matrix.python-version }}
