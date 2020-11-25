@@ -77,7 +77,7 @@ jobs:
           cp -rf ansible/test/units/compat /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/
           cp -rf ansible/test/units/modules/utils.py /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/plugins/modules/
           sed -i 's/units/ansible_collections.dellemc.openmanage.tests.unit/' /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/unit/plugins/modules/utils.py
-          pip install pytest coverage omsdk
+          pip install coverage omsdk
 
       - name: Run Unit tests using ansible-test
         run: ansible-test units --python ${{ matrix.python-version }}
