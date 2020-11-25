@@ -49,6 +49,7 @@ jobs:
     name: Unit Tests
     needs: [build]
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
