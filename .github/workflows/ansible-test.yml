@@ -49,7 +49,6 @@ jobs:
     name: Unit Tests
     needs: [build]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -81,6 +80,7 @@ jobs:
           pip install pytest pytest-xdist pytest-mock mock coverage omsdk 
 
       - name: Run Unit tests using ansible-test
+        continue-on-error: true
         run: ansible-test units --python ${{ matrix.python-version }}
         working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
