@@ -19,6 +19,7 @@ jobs:
     name: Build collection
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ansible-version: [2.9.15, 2.10.3]
     # Steps represent a sequence of tasks that will be executed as part of the job
