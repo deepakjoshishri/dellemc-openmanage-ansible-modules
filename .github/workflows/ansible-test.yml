@@ -98,15 +98,16 @@ jobs:
   sanity:
     name: Sanity Tests
     runs-on: ubuntu-latest
+    needs: [build]
     strategy:
       matrix:
         ansible-version: [2.10.3]
 
     steps:
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.8
 
       - name: Install ansible (${{ matrix.ansible-version }})
         run: pip install ansible=="${{ matrix.ansible-version }}"
