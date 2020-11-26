@@ -88,10 +88,9 @@ jobs:
         run: ansible-test coverage xml -v --group-by command --group-by version
         working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
-      - uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: false
-          file: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage/tests/output/reports/coverage.xml
+      - name: Push coverage report to codecov.io
+        run: bash <(curl -s https://codecov.io/bash) -s 'tests/output/reports/' -F units
+        working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
   sanity:
     name: Sanity Tests
