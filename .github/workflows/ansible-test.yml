@@ -85,7 +85,7 @@ jobs:
         working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
       - name: Generate coverage report.
-        run: ansible-test coverage report -v --requirements --group-by command --group-by version
+        run: ansible-test coverage report
         working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/openmanage
 
       - uses: codecov/codecov-action@v1
